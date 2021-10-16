@@ -46,10 +46,16 @@ while True:
                 image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
     cv2.imshow('Drone', image)
-
+    landed = True
     key = cv2.waitKey(1) & 0xff
     if key == 27: # ESCArgument parsing
         break
+    elif key == ord('o'):
+        tello.takeoff()
+        landed = False
+    elif key == ord('l'):
+        tello.land()
+        landed = True
     elif key == ord('w'):
         tello.move_forward(30)
     elif key == ord('s'):
@@ -68,4 +74,5 @@ while True:
         tello.move_down(30)
 
 hands.close()
-tello.land()
+if not landed:
+    tello.land()

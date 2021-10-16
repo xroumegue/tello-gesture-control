@@ -7,6 +7,11 @@ import itertools
 from collections import Counter
 from collections import deque
 
+import sys
+from pathlib import Path
+basedir=Path(__file__).parents[1]
+sys.path.append(str(basedir))
+
 import cv2 as cv
 import numpy as np
 import mediapipe as mp
@@ -77,14 +82,13 @@ def main():
     point_history_classifier = PointHistoryClassifier()
 
     # Read labels ###########################################################
-    with open('../model/keypoint_classifier/keypoint_classifier_label.csv',
+    with open(basedir.joinpath('model/keypoint_classifier/keypoint_classifier_label.csv'),
               encoding='utf-8-sig') as f:
         keypoint_classifier_labels = csv.reader(f)
         keypoint_classifier_labels = [
             row[0] for row in keypoint_classifier_labels
         ]
-    with open(
-            '../model/point_history_classifier/point_history_classifier_label.csv',
+    with open(basedir.joinpath('model/point_history_classifier/point_history_classifier_label.csv'),
             encoding='utf-8-sig') as f:
         point_history_classifier_labels = csv.reader(f)
         point_history_classifier_labels = [
